@@ -94,34 +94,19 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   }
 
   Widget _buildTopInfo(Map<String, dynamic> details) {
+    final String posterUrl = details['cover'] ?? '';
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: Image.network(
-            details['cover'],
-            width: 140,
-            height: 210,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Container(
-                width: 140,
-                height: 210,
-                color: AppColors.surface,
-                child: const Center(
-                  child: CircularProgressIndicator(strokeWidth: 2),
+                  posterUrl,
+                  width: 140,
+                  height: 210,
+                  fit: BoxFit.cover,
                 ),
-              );
-            },
-            errorBuilder: (context, error, stackTrace) => Container(
-              width: 140,
-              height: 210,
-              color: AppColors.surface,
-              child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
-            ),
-          ),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -335,6 +320,8 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             itemCount: DummyData.moviesList.length,
             itemBuilder: (context, index) {
               final item = DummyData.moviesList[index];
+              final String posterUrl = item['poster'] ?? '';
+
               return Container(
                 margin: const EdgeInsets.only(left: 12),
                 width: 110,
@@ -344,22 +331,9 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.network(
-                        item['poster'],
-                        fit: BoxFit.cover,
-                         loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Container(
-                            color: AppColors.surface,
-                            child: const Center(
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              posterUrl,
+                              fit: BoxFit.cover,
                             ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) => Container(
-                          color: AppColors.surface,
-                          child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
-                        ),
-                      ),
                     ),
                     Container(
                       decoration: BoxDecoration(

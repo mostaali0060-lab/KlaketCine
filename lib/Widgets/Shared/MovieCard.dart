@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../Core/Constants/AppColors.dart';
 
 class MovieCard extends StatelessWidget {
@@ -36,16 +35,16 @@ class MovieCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: SvgPicture.asset(
-                      posterUrl,
-                      width: width,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                      placeholderBuilder: (context) => Container(
-                        color: AppColors.surface,
-                        child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
-                      ),
-                    ),
+                    child: Image.network(
+                            posterUrl,
+                            width: width,
+                            height: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              color: AppColors.surface,
+                              child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
+                            ),
+                          ),
                   ),
                   if (badge.isNotEmpty)
                     Positioned(

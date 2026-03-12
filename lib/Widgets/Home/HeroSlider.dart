@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../Core/Constants/AppColors.dart';
 import '../../Data/DummyData.dart';
 import '../../Screens/SeriesDetailsScreen.dart';
@@ -59,14 +58,16 @@ class _HeroSliderState extends State<HeroSlider> {
   }
 
   Widget _buildHeroItem(Map<String, dynamic> item, BuildContext context) {
+    final String posterUrl = item['poster'] ?? '';
+
     return Stack(
       children: [
-        SvgPicture.asset(
-          item['poster'],
-          width: double.infinity,
-          height: 480,
-          fit: BoxFit.cover,
-        ),
+        Image.network(
+                posterUrl,
+                width: double.infinity,
+                height: 480,
+                fit: BoxFit.cover,
+              ),
         Container(
           height: 480,
           decoration: BoxDecoration(

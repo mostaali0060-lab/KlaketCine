@@ -8,29 +8,49 @@ class SimpleEpisodeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.badgeDark,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    final String posterUrl = episode['image'] ?? '';
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Stack(
+        fit: StackFit.expand,
         children: [
-          const Text(
-            'الحلقة',
-            style: TextStyle(
-              color: AppColors.textSecondary,
-              fontSize: 12,
+          // Background Image
+          Image.network(
+                  posterUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: AppColors.surface,
+                    child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
+                  ),
+                ),
+          // Overlay
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.4),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            '${episode['number']}',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          // Centered Text
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'الحلقة',
+                style: TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 12,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '${episode['number']}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ],
       ),

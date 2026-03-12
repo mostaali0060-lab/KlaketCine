@@ -26,3 +26,24 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/Font/Cairo/
+
+  fonts:
+    - family: Cairo
+      fonts:
+        - asset: assets/Font/Cairo/Cairo-ExtraLight.ttf
+          weight: 200
+        - asset: assets/Font/Cairo/Cairo-Light.ttf
+          weight: 300
+        - asset: assets/Font/Cairo/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/Font/Cairo/Cairo-Medium.ttf
+          weight: 500
+        - asset: assets/Font/Cairo/Cairo-SemiBold.ttf
+          weight: 600
+        - asset: assets/Font/Cairo/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/Font/Cairo/Cairo-ExtraBold.ttf
+          weight: 800
+        - asset: assets/Font/Cairo/Cairo-Black.ttf
+          weight: 900

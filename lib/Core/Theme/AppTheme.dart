@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../Constants/AppColors.dart';
 
 class AppTheme {
@@ -10,8 +9,8 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.background,
       primaryColor: AppColors.primary,
-      fontFamily: GoogleFonts.cairo().fontFamily,
-      textTheme: GoogleFonts.cairoTextTheme(ThemeData.dark().textTheme).copyWith(
+      fontFamily: 'Cairo',
+      textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Cairo').copyWith(
         bodyLarge: const TextStyle(color: AppColors.textPrimary),
         bodyMedium: const TextStyle(color: AppColors.textSecondary),
         titleLarge: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold),
@@ -22,7 +21,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: false,
         iconTheme: IconThemeData(color: AppColors.textPrimary),
-        titleTextStyle: TextStyle(color: AppColors.textPrimary, fontSize: 20, fontWeight: FontWeight.bold),
+        titleTextStyle: TextStyle(fontFamily: 'Cairo', color: AppColors.textPrimary, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.background,
