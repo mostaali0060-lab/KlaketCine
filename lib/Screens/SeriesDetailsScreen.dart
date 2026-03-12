@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../Core/Constants/AppColors.dart';
 import '../Data/DummyData.dart';
 import '../Widgets/Series/SeasonSelectorWidget.dart';
@@ -98,20 +97,36 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Widget in RTL first is visually on the right
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: CachedNetworkImage(
-            imageUrl: details['cover'], // Using cover like in design
+          child: Image.network(
+            details['cover'],
             width: 140,
             height: 210,
             fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Container(
+                width: 140,
+                height: 210,
+                color: AppColors.surface,
+                child: const Center(
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              );
+            },
+            errorBuilder: (context, error, stackTrace) => Container(
+              width: 140,
+              height: 210,
+              color: AppColors.surface,
+              child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
+            ),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // Visually aligns to right next to poster in RTL
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 details['title'],
@@ -328,9 +343,22 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: CachedNetworkImage(
-                        imageUrl: item['poster'],
+                      child: Image.network(
+                        item['poster'],
                         fit: BoxFit.cover,
+                         loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            color: AppColors.surface,
+                            child: const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) => Container(
+                          color: AppColors.surface,
+                          child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
+                        ),
                       ),
                     ),
                     Container(

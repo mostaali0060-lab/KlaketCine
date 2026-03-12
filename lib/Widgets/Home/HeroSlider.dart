@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../Core/Constants/AppColors.dart';
 import '../../Data/DummyData.dart';
 import '../../Screens/SeriesDetailsScreen.dart';
@@ -61,8 +61,8 @@ class _HeroSliderState extends State<HeroSlider> {
   Widget _buildHeroItem(Map<String, dynamic> item, BuildContext context) {
     return Stack(
       children: [
-        CachedNetworkImage(
-          imageUrl: item['poster'],
+        SvgPicture.asset(
+          item['poster'],
           width: double.infinity,
           height: 480,
           fit: BoxFit.cover,

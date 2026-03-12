@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import '../../Core/Constants/AppColors.dart';
 
 class EpisodeCard extends StatelessWidget {
@@ -30,14 +29,17 @@ class EpisodeCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                  child: CachedNetworkImage(
-                    imageUrl: episode['image'],
+                  child: Image.network(
+                    episode['image'],
                     fit: BoxFit.cover,
-                    placeholder: (context, url) => Container(
-                      color: AppColors.background,
-                      child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
-                    ),
-                    errorWidget: (context, url, error) => Container(
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        color: AppColors.background,
+                        child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) => Container(
                       color: AppColors.background,
                       child: const Icon(Icons.broken_image, color: AppColors.textSecondary),
                     ),
