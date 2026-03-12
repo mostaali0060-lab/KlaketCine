@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -32,15 +33,15 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {}, 
+            onPressed: () {},
             icon: const Icon(Icons.notifications_none, color: Colors.white),
           ),
           IconButton(
-            onPressed: () {}, 
+            onPressed: () {},
             icon: const Icon(Icons.favorite_border, color: Colors.white),
           ),
           IconButton(
-            onPressed: () {}, 
+            onPressed: () {},
             icon: const Icon(Icons.menu, color: Colors.white),
           ),
         ],

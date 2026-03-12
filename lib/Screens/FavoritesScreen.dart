@@ -64,10 +64,10 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget _buildEmptyState() {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Icon(Icons.favorite_border, size: 80, color: AppColors.textSecondary),
           SizedBox(height: 16),
           Text(

@@ -75,9 +75,9 @@ class ProfileScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: const Color(0xFFD4AF37).withOpacity(0.5)),
           ),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Row(
                 children: [
                   Icon(Icons.workspace_premium, color: Color(0xFFD4AF37)),

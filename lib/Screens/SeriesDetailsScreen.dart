@@ -43,7 +43,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final details = DummyData.seriesDetailsInfo;
+    const details = DummyData.seriesDetailsInfo;
 
     return Scaffold(
       backgroundColor: AppColors.background,

@@ -27,11 +27,11 @@ class TelegramPromoCard extends StatelessWidget {
         children: [
           const Icon(Icons.telegram, size: 48, color: Colors.white),
           const SizedBox(width: 16),
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'انضم إلى قناة تيليجرام',
                   style: TextStyle(
                     color: Colors.white,
@@ -39,7 +39,7 @@ class TelegramPromoCard extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4),
                 Text(
                   'أحدث الأفلام والمسلسلات الحصرية',
                   style: TextStyle(
