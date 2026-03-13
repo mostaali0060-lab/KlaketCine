@@ -16,77 +16,95 @@ class RecentEpisodeCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ?? _defaultOnTap,
       child: Container(
-        width: 160,
+        width: 250,
         margin: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    episode['thumbnail'],
-                    height: 90,
-                    width: 160,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      height: 90,
-                      width: 160,
-                      color: AppColors.surface,
-                      child: const Icon(Icons.image_not_supported, color: AppColors.textSecondary),
-                    ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand, // Make stack children fill the space
+            children: [
+              // Image
+              Image.network(
+                episode['thumbnail'],
+                fit: BoxFit.cover, // This will make the image cover the entire space
+                errorBuilder: (context, error, stackTrace) => Container(
+                  color: AppColors.surface,
+                  child: const Icon(Icons.image_not_supported, color: AppColors.textSecondary),
+                ),
+              ),
+
+              // Gradient overlay for text readability
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.1),
+                      Colors.black.withOpacity(0.9),
+                    ],
+                    stops: const [0.5, 0.7, 1.0],
                   ),
                 ),
-                Container(
-                  height: 90,
-                  width: 160,
+              ),
+
+              // Play Icon
+              const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: 50,
+              ),
+
+              // Duration Tag
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.black.withAlpha(77),
+                    color: Colors.black.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    episode['duration'],
+                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Icon(
-                  Icons.play_circle_fill,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                 Positioned(
-                  top: 4,
-                  left: 4,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(179),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      episode['duration'],
-                      style: const TextStyle(color: Colors.white, fontSize: 10),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              episode['series_title'], // Corrected key
-              style: const TextStyle(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.bold,
               ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text(
-              'الحلقة ${episode['episode_number']}', // Corrected keys
-              style: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 12,
+
+              // Title and Episode Info
+              Positioned(
+                bottom: 8,
+                right: 8,
+                left: 8,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min, // Ensure column takes minimum space
+                  children: [
+                    Text(
+                      episode['series_title'],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'الحلقة ${episode['episode_number']}',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.8),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

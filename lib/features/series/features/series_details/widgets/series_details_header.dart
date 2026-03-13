@@ -7,12 +7,14 @@ class SeriesDetailsHeader extends StatelessWidget {
   final Map<String, dynamic> details;
   final bool isSeries;
   final int? episodesCount;
+  final VoidCallback? onWatchNowPressed;
 
   const SeriesDetailsHeader({
     super.key,
     required this.details,
     required this.isSeries,
     this.episodesCount,
+    this.onWatchNowPressed,
   });
 
   @override
@@ -47,8 +49,11 @@ class SeriesDetailsHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: _buildDetailsColumn(context, details,
-                      CrossAxisAlignment.start, isSeries, episodesCount),
+                  child: SizedBox(
+                    height: posterHeight,
+                    child: _buildDetailsColumn(context, details,
+                        CrossAxisAlignment.start, isSeries, episodesCount),
+                  ),
                 ),
                 const SizedBox(width: 16),
                 SizedBox(
@@ -96,79 +101,103 @@ class SeriesDetailsHeader extends StatelessWidget {
       int? episodesCount) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          details['title'] ?? 'باب الحارة',
-          style: const TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "Bab Al Hara", // Placeholder for English title
-          style: TextStyle(fontSize: 16, color: Colors.grey[400]),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          "${details['year'] ?? '2023'} • ${details['country'] ?? 'سوريا'} • 60 دقيقة",
-          style: TextStyle(fontSize: 13, color: Colors.grey[300]),
-        ),
-        const SizedBox(height: 20),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.play_arrow_rounded),
-              label: const Text('شاهد الآن'),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      const Color(0xFF00A849), // Green color from image
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10)),
-            ),
-            const SizedBox(width: 12),
-            _buildBadge(
-                details['genre'] ?? 'دراما', Colors.transparent, Colors.white,
-                hasBorder: true),
-            const SizedBox(width: 12),
-            const Icon(Icons.star, color: Color(0xFFFFC107), size: 18),
-            const SizedBox(width: 4),
             Text(
-              "Rating ${details['rating']?.toString() ?? '8.1'}",
+              details['title'] ?? 'باب الحارة',
               style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              "Bab Al Hara", // Placeholder for English title
+              style: TextStyle(fontSize: 16, color: Colors.grey[400]),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              "${details['year'] ?? '2023'} • ${details['country'] ?? 'سوريا'} • 60 دقيقة",
+              style: TextStyle(fontSize: 13, color: Colors.grey[300]),
             ),
           ],
         ),
-        const SizedBox(height: 20),
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildStat(Icons.visibility_outlined, "143.8K", "مشاهدة"),
-            const SizedBox(width: 24),
-            _buildStat(Icons.chat_bubble_outline, "22.1K", "تعليق"),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: onWatchNowPressed,
+                  icon: const Icon(Icons.play_arrow_rounded),
+                  label: const Text('شاهد الآن'),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          const Color(0xFF00A849), // Green color from image
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 10)),
+                ),
+                const SizedBox(width: 12),
+                _buildBadge(
+                    details['genre'] ?? 'دراما', Colors.transparent, Colors.white,
+                    hasBorder: true),
+                const SizedBox(width: 12),
+                const Icon(Icons.star, color: Color(0xFFFFC107), size: 18),
+                const SizedBox(width: 4),
+                Text(
+                  "Rating ${details['rating']?.toString() ?? '8.1'}",
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                _buildStat(Icons.visibility_outlined, "1K", ""),
+                const SizedBox(width: 12),
+                _buildStat(Icons.chat_bubble_outline, "0", "تعليق",
+                    isComment: true),
+              ],
+            ),
           ],
-        ),
-        const SizedBox(height: 10), // Some bottom padding
+        )
       ],
     );
   }
 
-  Widget _buildStat(IconData icon, String value, String label) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.grey[400], size: 20),
-        const SizedBox(width: 8),
-        Text(value,
-            style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16)),
-        const SizedBox(width: 4),
-        Text(label, style: TextStyle(color: Colors.grey[400], fontSize: 14)),
-      ],
+  Widget _buildStat(IconData icon, String value, String label, 
+      {bool isComment = false}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: isComment ? AppColors.primary.withOpacity(0.2) : AppColors.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isComment ? AppColors.primary : AppColors.textSecondary,
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white, size: 16),
+          const SizedBox(width: 8),
+          Text(value,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
+          if (label.isNotEmpty)
+            const SizedBox(width: 4),
+          if (label.isNotEmpty)
+            Text(label, style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+        ],
+      ),
     );
   }
 

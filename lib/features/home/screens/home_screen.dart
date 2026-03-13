@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildRecentlyAddedList(BuildContext context, List<Map<String, dynamic>> episodes) {
     return SizedBox(
-      height: 150,
+      height: 160,
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         scrollDirection: Axis.horizontal,

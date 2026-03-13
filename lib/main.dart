@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:klaket_cine/features/support_gaza/screens/support_gaza_screen.dart';
 import 'core/theme/app_theme.dart';
-import 'shared/screens/main_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class KlaketCineApp extends StatelessWidget {
         Locale('ar', ''), // Arabic
       ],
       locale: const Locale('ar', ''),
-      home: const MainScreen(),
+      home: const SupportGazaScreen(),
     );
   }
 }

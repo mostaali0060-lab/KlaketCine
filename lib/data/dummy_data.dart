@@ -219,3 +219,59 @@ const seasonsData = [
     ]
   },
 ];
+
+const List<Map<String, String>> castData = [
+  {
+    'name': 'حمزة العيلي',
+    'role': 'درويش',
+    'image': 'https://image.tmdb.org/t/p/w500/A2L4r2B5gT7bVdC26G1Oa1gY5aT.jpg',
+  },
+  {
+    'name': 'أسماء أبو اليزيد',
+    'role': 'رسمية',
+    'image': 'https://image.tmdb.org/t/p/w500/q9qJAmh2W3rGk3yv5QxVz7wO9Z6.jpg',
+  },
+  {
+    'name': 'دنيا سامي',
+    'role': 'عيشة',
+    'image': 'https://image.tmdb.org/t/p/w500/g9fS42JFuA9m6IuK8KSTAb4tV29.jpg',
+  },
+  {
+    'name': 'أحمد أمين',
+    'role': 'عبدالعزيز النص',
+    'image': 'https://image.tmdb.org/t/p/w500/2XTqJbwL54t9fM0c2iBfPAb2b6s.jpg',
+  },
+  {
+    'name': 'صدقي صخر',
+    'role': 'الصاع علوي',
+    'image': 'https://image.tmdb.org/t/p/w500/7aFm7cSPERK2f9O22NAyV62x2pP.jpg',
+  },
+  {
+    'name': 'عبدالرحمن محمد',
+    'role': 'رزقوق',
+    'image': 'https://image.tmdb.org/t/p/w500/iAhb2r2gR8rJigUvIe3h0AljLz7.jpg',
+  },
+  {
+    'name': 'سامية الطرابلسي',
+    'role': 'عزيزة',
+    'image': 'https://image.tmdb.org/t/p/w500/4Zf8YgBDfG2y5u52fGvA6rELhAT.jpg',
+  },
+];
+
+const List<Map<String, String>> crewData = [
+  {
+    'name': 'مخرج',
+    'role': 'اسم المخرج',
+    'image': 'https://via.placeholder.com/150/FFFFFF/000000?text=Director',
+  },
+  {
+    'name': 'كاتب',
+    'role': 'اسم الكاتب',
+    'image': 'https://via.placeholder.com/150/FFFFFF/000000?text=Writer',
+  },
+  {
+    'name': 'منتج',
+    'role': 'اسم المنتج',
+    'image': 'https://via.placeholder.com/150/FFFFFF/000000?text=Producer',
+  },
+];
