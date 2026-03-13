@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Core/Theme/AppTheme.dart';
-import 'Screens/MainScreen.dart';
+import 'core/theme/app_theme.dart';
+import 'shared/screens/main_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
