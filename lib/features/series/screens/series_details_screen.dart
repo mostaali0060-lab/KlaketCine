@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
+import 'package:klaket_cine/features/favorites/favorites_manager.dart';
 import 'package:klaket_cine/features/player/screens/episode_player_loader.dart';
 
 const seasonsData = [
@@ -41,6 +42,7 @@ class SeriesDetailsScreen extends StatefulWidget {
 class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   late Map<String, dynamic> _selectedSeason;
   int? _currentlyPlayingEpisode;
+  bool _isFavorite = false;
 
   @override
   void initState() {
@@ -48,34 +50,24 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
     if (widget.item['type'] == 'series') {
       _selectedSeason = seasonsData.first;
     }
-  }
-   String _getSeasonName(int seasonNumber) {
-    switch (seasonNumber) {
-      case 1:
-        return 'الموسم الاول';
-      case 2:
-        return 'الموسم الثاني';
-      case 3:
-        return 'الموسم الثالث';
-      case 4:
-        return 'الموسم الرابع';
-      case 5:
-        return 'الموسم الخامس';
-      case 6:
-        return 'الموسم السادس';
-      case 7:
-        return 'الموسم السابع';
-      case 8:
-        return 'الموسم الثامن';
-      case 9:
-        return 'الموسم التاسع';
-      case 10:
-        return 'الموسم العاشر';
-      default:
-        return 'الموسم $seasonNumber';
-    }
+    _isFavorite = FavoritesManager.isFavorite(widget.item);
   }
 
+  String _getSeasonName(int seasonNumber) {
+    switch (seasonNumber) {
+      case 1: return 'الموسم الاول';
+      case 2: return 'الموسم الثاني';
+      case 3: return 'الموسم الثالث';
+      case 4: return 'الموسم الرابع';
+      case 5: return 'الموسم الخامس';
+      case 6: return 'الموسم السادس';
+      case 7: return 'الموسم السابع';
+      case 8: return 'الموسم الثامن';
+      case 9: return 'الموسم التاسع';
+      case 10: return 'الموسم العاشر';
+      default: return 'الموسم $seasonNumber';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +78,6 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
     final isSeries = details['type'] == 'series';
     final int? episodesCount = isSeries ? _selectedSeason['episodes_count'] : null;
 
-
     return Scaffold(
       backgroundColor: AppColors.background,
       body: CustomScrollView(
@@ -95,13 +86,9 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             expandedHeight: 0,
             backgroundColor: AppColors.background,
             pinned: true,
-             title: Text(
+            title: Text(
               widget.item['title'] ?? 'تفاصيل',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
             ),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(color: AppColors.background),
@@ -151,10 +138,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             return Container(
               decoration: const BoxDecoration(
                 color: Color(0xFF1A1C21),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
               ),
               child: Column(
                 children: [
@@ -163,17 +147,9 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'اختر الموسم',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        const Text('اختر الموسم', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
                         IconButton(
-                          icon: const Icon(Icons.close,
-                              color: Colors.white, size: 28),
+                          icon: const Icon(Icons.close, color: Colors.white, size: 28),
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                       ],
@@ -185,20 +161,15 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                       itemCount: seasonsData.length,
                       itemBuilder: (context, index) {
                         final season = seasonsData[index];
-                        final bool isSelected = season['season_number'] ==
-                            _selectedSeason['season_number'];
+                        final bool isSelected = season['season_number'] == _selectedSeason['season_number'];
                         return InkWell(
                           onTap: () {
-                            setState(() {
-                              _selectedSeason = season;
-                            });
+                            setState(() { _selectedSeason = season; });
                             Navigator.of(context).pop();
                           },
                           child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 6),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
+                            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
                               color: const Color(0xFF282A30),
                               borderRadius: BorderRadius.circular(12),
@@ -212,9 +183,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                                     Text(
                                       '${_getSeasonName(season["season_number"] as int)} [ ${season["season_number"]} ]',
                                       style: TextStyle(
-                                        color: isSelected
-                                            ? AppColors.primary
-                                            : Colors.white,
+                                        color: isSelected ? AppColors.primary : Colors.white,
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -222,19 +191,12 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                                     const SizedBox(height: 4),
                                     Text(
                                       '${season["episodes_count"]} حلقة',
-                                      style: const TextStyle(
-                                        color: AppColors.textSecondary,
-                                        fontSize: 14,
-                                      ),
+                                      style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
                                     ),
                                   ],
                                 ),
                                 if (isSelected)
-                                  const Icon(
-                                    Icons.check_circle_rounded,
-                                    color: AppColors.primary,
-                                    size: 26,
-                                  ),
+                                  const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 26),
                               ],
                             ),
                           ),
@@ -251,8 +213,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
     );
   }
 
-  Widget _buildSeasonsAndEpisodes(
-      BuildContext context, Map<String, dynamic> seriesDetails) {
+  Widget _buildSeasonsAndEpisodes(BuildContext context, Map<String, dynamic> seriesDetails) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -273,14 +234,9 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
               children: [
                 Text(
                   '${_getSeasonName(_selectedSeason["season_number"] as int)} [ ${_selectedSeason["season_number"]} ]',
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                  style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                const Icon(Icons.keyboard_arrow_down_rounded,
-                    color: AppColors.textSecondary, size: 24),
+                const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.textSecondary, size: 24),
               ],
             ),
           ),
@@ -290,20 +246,18 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: (_selectedSeason['episodes'] as List).length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 80,
+            childAspectRatio: 1.0,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 1.0,
           ),
           itemBuilder: (context, index) {
             final episode = (_selectedSeason['episodes'] as List)[index];
-            final bool isPlaying =_currentlyPlayingEpisode == episode['episode_number'];
+            final bool isPlaying = _currentlyPlayingEpisode == episode['episode_number'];
             return InkWell(
               onTap: () {
-                setState(() {
-                  _currentlyPlayingEpisode = episode['episode_number'];
-                });
+                setState(() { _currentlyPlayingEpisode = episode['episode_number']; });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -329,21 +283,11 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'الحلقة',
-                      style: TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 12,
-                      ),
-                    ),
+                    const Text('الحلقة', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                     const SizedBox(height: 4),
                     Text(
                       episode['episode_number'].toString(),
-                      style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(color: AppColors.textPrimary, fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -355,8 +299,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
     );
   }
 
-  Widget _buildResponsiveTopInfo(
-      BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
+  Widget _buildResponsiveTopInfo(BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
@@ -377,39 +320,34 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          flex: 3,
-          child:
-              _buildDetailsColumn(context, details, CrossAxisAlignment.start, isSeries, episodesCount),
+          flex: 2,
+          child: _buildPosterImage(context, details['cover'] ?? '', imageWidth, imageHeight),
         ),
         const SizedBox(width: 24),
         Expanded(
-          flex: 2,
-          child: _buildPosterImage(
-              context, details['cover'] ?? '', imageWidth, imageHeight),
+          flex: 3,
+          child: _buildDetailsColumn(context, details, CrossAxisAlignment.start, isSeries, episodesCount),
         ),
       ],
     );
   }
 
-  Widget _buildTopInfoColumn(
-      BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
+  Widget _buildTopInfoColumn(BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final imageWidth = screenWidth * 0.5;
+    final imageWidth = screenWidth * 0.6;
     final imageHeight = imageWidth * 1.5;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        _buildPosterImage(
-            context, details['cover'] ?? '', imageWidth, imageHeight),
+        _buildPosterImage(context, details['cover'] ?? '', imageWidth, imageHeight),
         const SizedBox(height: 24),
         _buildDetailsColumn(context, details, CrossAxisAlignment.center, isSeries, episodesCount),
       ],
     );
   }
 
-  Widget _buildPosterImage(
-      BuildContext context, String posterUrl, double width, double height) {
+  Widget _buildPosterImage(BuildContext context, String posterUrl, double width, double height) {
     return Align(
       alignment: Alignment.center,
       child: ClipRRect(
@@ -423,62 +361,40 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             width: width,
             height: height,
             color: AppColors.surface,
-            child: const Icon(Icons.broken_image,
-                color: AppColors.textSecondary, size: 40),
+            child: const Icon(Icons.broken_image, color: AppColors.textSecondary, size: 40),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildDetailsColumn(BuildContext context, Map<String, dynamic> details,
-      CrossAxisAlignment crossAxisAlignment, bool isSeries, int? episodesCount) {
+  Widget _buildDetailsColumn(BuildContext context, Map<String, dynamic> details, CrossAxisAlignment crossAxisAlignment, bool isSeries, int? episodesCount) {
     return Column(
       crossAxisAlignment: crossAxisAlignment,
       children: [
         Text(
           details['title'],
-          textAlign: crossAxisAlignment == CrossAxisAlignment.center
-              ? TextAlign.center
-              : TextAlign.start,
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          textAlign: crossAxisAlignment == CrossAxisAlignment.center ? TextAlign.center : TextAlign.start,
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         const SizedBox(height: 12),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+        Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: crossAxisAlignment == CrossAxisAlignment.center ? WrapAlignment.center : WrapAlignment.start,
           children: [
-            Text(details['year'] ?? '2023',
-                style: const TextStyle(
-                    color: AppColors.textSecondary, fontSize: 14)),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Text('•',
-                  style:
-                      TextStyle(color: AppColors.textSecondary, fontSize: 12)),
-            ),
+            Text(details['year'] ?? '2023', style: const TextStyle(color: AppColors.textSecondary, fontSize: 14)),
+            const Text('•', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
             const Icon(Icons.star, color: AppColors.ratingStar, size: 18),
             const SizedBox(width: 4),
             Text(
               (details['rating'] ?? 'N/A').toString(),
-              style: const TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
+              style: const TextStyle(color: AppColors.textPrimary, fontSize: 15, fontWeight: FontWeight.bold),
             ),
             if (details['badge'] != null && details['badge'].isNotEmpty) ...[
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Text('•',
-                    style:
-                        TextStyle(color: AppColors.textSecondary, fontSize: 12)),
-              ),
-              _buildBadge(details['badge'],
-                  AppColors.badgeGreen.withAlpha(204), Colors.white,
-                  fontSize: 11),
+              const Text('•', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+              _buildBadge(details['badge'], AppColors.badgeGreen.withAlpha(204), Colors.white, fontSize: 11),
             ]
           ],
         ),
@@ -486,55 +402,59 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          alignment: crossAxisAlignment == CrossAxisAlignment.center
-              ? WrapAlignment.center
-              : WrapAlignment.start,
+          alignment: crossAxisAlignment == CrossAxisAlignment.center ? WrapAlignment.center : WrapAlignment.start,
           children: [
-            _buildBadge(details['genre'] ?? 'متنوع', AppColors.surface,
-                AppColors.textPrimary),
+            _buildBadge(details['genre'] ?? 'متنوع', AppColors.surface, AppColors.textPrimary),
             if (isSeries)
-              _buildBadge('$episodesCount حلقة', AppColors.surface,
-                  AppColors.textPrimary),
-            _buildBadge(details['country'] ?? 'غير معروف', AppColors.surface,
-                AppColors.textPrimary),
+              _buildBadge('$episodesCount حلقة', AppColors.surface, AppColors.textPrimary),
+            _buildBadge(details['country'] ?? 'غير معروف', AppColors.surface, AppColors.textPrimary),
           ],
         ),
         const SizedBox(height: 24),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          alignment: crossAxisAlignment == CrossAxisAlignment.center ? WrapAlignment.center : WrapAlignment.start,
           children: [
             ElevatedButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.play_arrow_rounded, size: 30),
-              label: const Text('تشغيل',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              label: const Text('تشغيل', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
             ),
-            const SizedBox(width: 12),
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(12),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  FavoritesManager.toggleFavorite(widget.item);
+                  _isFavorite = FavoritesManager.isFavorite(widget.item);
+                });
+              },
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  _isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  color: _isFavorite ? AppColors.primary : AppColors.textPrimary,
+                  size: 30,
+                ),
               ),
-              child: const Icon(Icons.favorite_border_rounded,
-                  color: AppColors.textPrimary, size: 30),
-            )
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildBadge(String text, Color bgColor, Color textColor,
-      {double fontSize = 12}) {
+  Widget _buildBadge(String text, Color bgColor, Color textColor, {double fontSize = 12}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
@@ -543,11 +463,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: textColor,
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -559,19 +475,11 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   Widget _buildSectionTitle(String title) {
     return Row(
       children: [
-        Container(
-          width: 4,
-          height: 20,
-          color: AppColors.primary,
-        ),
+        Container(width: 4, height: 20, color: AppColors.primary),
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -585,11 +493,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
         const SizedBox(height: 16),
         Text(
           details['story'] ?? "لا تتوفر حاليا قصة",
-          style: const TextStyle(
-            color: AppColors.textSecondary,
-            fontSize: 15,
-            height: 1.6,
-          ),
+          style: const TextStyle(color: AppColors.textSecondary, fontSize: 15, height: 1.6),
         ),
       ],
     );
@@ -613,8 +517,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             itemBuilder: (context, index) {
               final item = dummyData[index];
               final String posterUrl = item['poster'] ?? '';
-              String title =
-                  item['title']?.replaceFirst('فيلم ', '').replaceFirst('مسلسل ', '') ?? '';
+              String title = item['title']?.replaceFirst('فيلم ', '').replaceFirst('مسلسل ', '') ?? '';
 
               return Container(
                 margin: const EdgeInsets.only(left: 12),
@@ -629,17 +532,13 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) => Container(
                           color: AppColors.surface,
-                          child: const Icon(Icons.broken_image,
-                              color: AppColors.textSecondary, size: 40),
+                          child: const Icon(Icons.broken_image, color: AppColors.textSecondary, size: 40),
                         ),
                       ),
                       Container(
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              Color.fromRGBO(0, 0, 0, 0.9),
-                            ],
+                            colors: [Colors.transparent, Color.fromRGBO(0, 0, 0, 0.9)],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             stops: [0.5, 1.0],
@@ -655,11 +554,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                         ),
                       ),
                     ],

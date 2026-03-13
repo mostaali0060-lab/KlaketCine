@@ -1,48 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
-import 'package:klaket_cine/data/dummy_data.dart';
+import 'package:klaket_cine/features/favorites/favorites_manager.dart';
 import 'package:klaket_cine/shared/widgets/content_card.dart';
 import 'package:klaket_cine/features/series/screens/series_details_screen.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // For demo purposes, we take a subset of moviesList
-    final List<Map<String, dynamic>> favoriteMovies = dummyData.take(3).toList();
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
 
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  late List<Map<String, dynamic>> _favoriteMovies;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavorites();
+  }
+
+  void _loadFavorites() {
+    setState(() {
+      _favoriteMovies = FavoritesManager.favorites;
+    });
+  }
+
+  void _navigateToDetails(Map<String, dynamic> item) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SeriesDetailsScreen(item: item),
+      ),
+    );
+    _loadFavorites(); // Refresh the list when returning
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('المفضلة', style: TextStyle(fontWeight: FontWeight.bold)),
       ),
-      body: favoriteMovies.isEmpty
+      body: _favoriteMovies.isEmpty
           ? _buildEmptyState()
           : GridView.builder(
               padding: const EdgeInsets.all(16),
-              // --- Making the Grid Responsive ---
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 150, // Consistent max width
-                childAspectRatio: 0.7, // Consistent aspect ratio
+                maxCrossAxisExtent: 150,
+                childAspectRatio: 0.7,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
               ),
-              itemCount: favoriteMovies.length,
+              itemCount: _favoriteMovies.length,
               itemBuilder: (context, index) {
-                final movie = favoriteMovies[index];
+                final movie = _favoriteMovies[index];
                 return Stack(
                   children: [
                     ContentCard(
                       item: movie,
-                      // `width` parameter removed
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SeriesDetailsScreen(item: movie),
-                          ),
-                        );
-                      },
+                      onTap: () => _navigateToDetails(movie),
                     ),
                     Positioned(
                       top: 4,
