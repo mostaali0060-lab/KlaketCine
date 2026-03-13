@@ -1,222 +1,217 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
+import 'package:klaket_cine/shared/widgets/watch_now_button.dart';
 
 class SeriesDetailsHeader extends StatelessWidget {
   final Map<String, dynamic> details;
   final bool isSeries;
   final int? episodesCount;
-  final VoidCallback? onWatchNowPressed;
+  final VoidCallback onWatchNowPressed;
 
   const SeriesDetailsHeader({
     super.key,
     required this.details,
     required this.isSeries,
     this.episodesCount,
-    this.onWatchNowPressed,
+    required this.onWatchNowPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final posterWidth = screenWidth * 0.3; // Adjust this for a good look
-    final posterHeight = posterWidth * 1.5;
+    // Set a fixed size for the poster as requested.
+    const double posterWidth = 150;
+    const double posterHeight = posterWidth * 1.5;
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.network(
-              details['cover'] ?? '',
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) =>
-                  Container(color: AppColors.surface),
-            ),
-          ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(
-                color: Colors.black.withAlpha(153),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildPoster(details['poster'], posterWidth, posterHeight),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                details['title'] ?? 'بدون عنوان',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+              _buildSubtitle(details['original_title']),
+              const SizedBox(height: 8),
+              _buildMetaInfo(details['year'], details['country'], details['duration']),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  _buildRating(details['rating']?.toString()),
+                  const SizedBox(width: 12),
+                  _buildGenre(details['genre']),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _buildActionButtons(context, onWatchNowPressed, isSeries,
+                  details['comments_count'], details['views_count'])
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: posterHeight,
-                    child: _buildDetailsColumn(context, details,
-                        CrossAxisAlignment.start, isSeries, episodesCount),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                SizedBox(
-                  width: posterWidth,
-                  height: posterHeight,
-                  child: _buildPosterImage(context, details['cover'] ?? '',
-                      posterWidth, posterHeight),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPoster(
+      String? posterUrl, double width, double height) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(8),
+        image: posterUrl != null
+            ? DecorationImage(
+                image: NetworkImage(posterUrl),
+                fit: BoxFit.cover,
+              )
+            : null,
+      ),
+      child: posterUrl == null
+          ? const Icon(Icons.movie, color: AppColors.textSecondary, size: 40)
+          : null,
+    );
+  }
+
+  Widget _buildSubtitle(String? subtitle) {
+    if (subtitle == null) return const SizedBox.shrink();
+    return Text(
+      subtitle,
+      style: const TextStyle(
+        color: AppColors.textSecondary,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
 
-  Widget _buildPosterImage(
-      BuildContext context, String posterUrl, double width, double height) {
-    return Align(
-      alignment: Alignment.center,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.network(
-          posterUrl,
-          width: width,
-          height: height,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
-            width: width,
-            height: height,
-            color: AppColors.surface,
-            child: const Icon(Icons.broken_image,
-                color: AppColors.textSecondary, size: 40),
+  Widget _buildMetaInfo(String? year, String? country, String? duration) {
+    final List<String> meta = [];
+    if (year != null) meta.add(year);
+    if (country != null) meta.add(country);
+    if (duration != null) meta.add('$duration دقيقة');
+
+    if (meta.isEmpty) return const SizedBox.shrink();
+
+    return Text(
+      meta.join(' • '),
+      style: const TextStyle(
+        color: AppColors.textSecondary,
+        fontSize: 14,
+      ),
+    );
+  }
+
+  // Original Rating Widget
+  Widget _buildRating(String? rating) {
+    if (rating == null) return const SizedBox.shrink();
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text(
+          'Rating',
+          style: TextStyle(
+              color: AppColors.textSecondary,
+              fontSize: 14,
+              fontWeight: FontWeight.w500),
+        ),
+        const SizedBox(width: 8),
+        const Icon(Icons.star, color: Colors.amber, size: 18),
+        const SizedBox(width: 4),
+        Text(
+          rating,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGenre(String? genre) {
+    if (genre == null) return const SizedBox.shrink();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.textSecondary, width: 1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        genre,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 14,
         ),
       ),
     );
   }
 
-  Widget _buildDetailsColumn(
-      BuildContext context,
-      Map<String, dynamic> details,
-      CrossAxisAlignment crossAxisAlignment,
-      bool isSeries,
-      int? episodesCount) {
+  Widget _buildActionButtons(BuildContext context, VoidCallback onWatchNow, bool isSeries, int? commentsCount, int? viewsCount) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        if (isSeries)
+          WatchNowButton(
+            onPressed: onWatchNow,
+            text: episodesCount != null ? 'شاهد الآن ($episodesCount حلقات)' : 'شاهد الآن',
+          ),
+        if (!isSeries)
+          WatchNowButton(onPressed: onWatchNow, text: 'شاهد الآن'),
+        const SizedBox(height: 16),
+        Row(
           children: [
-            Text(
-              details['title'] ?? 'باب الحارة',
-              style: const TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              "Bab Al Hara", // Placeholder for English title
-              style: TextStyle(fontSize: 16, color: Colors.grey[400]),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              "${details['year'] ?? '2023'} • ${details['country'] ?? 'سوريا'} • 60 دقيقة",
-              style: TextStyle(fontSize: 13, color: Colors.grey[300]),
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: onWatchNowPressed,
-                  icon: const Icon(Icons.play_arrow_rounded),
-                  label: const Text('شاهد الآن'),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color(0xFF00A849), // Green color from image
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10)),
-                ),
-                const SizedBox(width: 12),
-                _buildBadge(
-                    details['genre'] ?? 'دراما', Colors.transparent, Colors.white,
-                    hasBorder: true),
-                const SizedBox(width: 12),
-                const Icon(Icons.star, color: Color(0xFFFFC107), size: 18),
-                const SizedBox(width: 4),
-                Text(
-                  "Rating ${details['rating']?.toString() ?? '8.1'}",
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                _buildStat(Icons.visibility_outlined, "1K", ""),
-                const SizedBox(width: 12),
-                _buildStat(Icons.chat_bubble_outline, "0", "تعليق",
-                    isComment: true),
-              ],
-            ),
+            _buildInfoChip(Icons.comment_outlined, '$commentsCount تعليق', context),
+            const SizedBox(width: 12),
+            _buildInfoChip(Icons.visibility_outlined, viewsCountK, context),
           ],
         )
       ],
     );
   }
 
-  Widget _buildStat(IconData icon, String value, String label, 
-      {bool isComment = false}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: isComment ? AppColors.primary.withOpacity(0.2) : AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isComment ? AppColors.primary : AppColors.textSecondary,
-          width: 1,
+  Widget _buildInfoChip(IconData icon, String label, BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: AppColors.primary.withAlpha(51), width: 1),
         ),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white, size: 16),
-          const SizedBox(width: 8),
-          Text(value,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
-          if (label.isNotEmpty)
-            const SizedBox(width: 4),
-          if (label.isNotEmpty)
-            Text(label, style: TextStyle(color: Colors.grey[400], fontSize: 12)),
-        ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: AppColors.textSecondary, size: 18),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildBadge(String text, Color bgColor, Color textColor,
-      {double fontSize = 12, bool hasBorder = false}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(8),
-        border: hasBorder
-            ? Border.all(color: Colors.white.withAlpha(128), width: 1)
-            : null,
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-            color: textColor, fontSize: fontSize, fontWeight: FontWeight.bold),
-      ),
-    );
+  String get viewsCountK {
+    final views = details['views_count'];
+    if (views == null) return '0';
+    if (views >= 1000) {
+      return '${(views / 1000).toStringAsFixed(0)}K';
+    }
+    return views.toString();
   }
 }

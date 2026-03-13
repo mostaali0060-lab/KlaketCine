@@ -40,7 +40,11 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> details = widget.item;
+    final Map<String, dynamic> details = {
+      ...widget.item,
+      'story':
+          'تدور أحداث المسلسل في إطار الدراما الصعيدية، حيث يواجه رجل أعمال صعوبات في تحقيق حلمه ببناء فندق في قريته، ويخوض صراعات مع منافسيه ومع عائلته، وتتوالى الأحداث في إطار من التشويق والإثارة. المسلسل من بطولة نخبة من نجوم الدراما المصرية والعربية، ويقدم رؤية جديدة للصعيد المصري بعيدًا عن الصورة النمطية المعتادة. يركز العمل على العلاقات الإنسانية المتشابكة والصراعات بين الخير والشر، ويسلط الضوء على قضايا اجتماعية هامة مثل الثأر والتطرف الديني.'
+    };
     if (!details.containsKey('cover') && details.containsKey('poster')) {
       details['cover'] = details['poster'];
     }
@@ -53,19 +57,31 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 0,
             backgroundColor: AppColors.background,
-            pinned: true,
-            // title: Text(
-            //   widget.item['title'] ?? 'تفاصيل',
-            //   style: const TextStyle(
-            //       color: Colors.white,
-            //       fontSize: 18,
-            //       fontWeight: FontWeight.bold),
-            // ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(color: AppColors.background),
-            ),
+            pinned: true, // Keeps the app bar visible during scroll
+            // Add the new icons to the 'actions' list
+            // In RTL, actions are on the left side.
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.share, color: Colors.white),
+                onPressed: () {
+                  // TODO: Implement share functionality
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.notifications_none_outlined,
+                    color: Colors.white),
+                onPressed: () {
+                  // TODO: Implement notifications functionality
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.favorite_border, color: Colors.white),
+                onPressed: () {
+                  // TODO: Implement favorite functionality
+                },
+              ),
+            ],
           ),
           SliverToBoxAdapter(
             child: Padding(
