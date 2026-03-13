@@ -1,7 +1,8 @@
 final List<Map<String, dynamic>> dummyData = [
   {
     'title': 'مسلسل الأمير',
-    'poster': 'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
+    'poster':
+        'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
     'genre': 'دراما',
     'year': '2014-2016',
     'rating': 7.5,
@@ -10,7 +11,8 @@ final List<Map<String, dynamic>> dummyData = [
   },
   {
     'title': 'مسلسل الهيبة',
-    'poster': 'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
+    'poster':
+        'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
     'genre': 'دراما',
     'year': '2017-2021',
     'rating': 7.9,
@@ -19,7 +21,8 @@ final List<Map<String, dynamic>> dummyData = [
   },
   {
     'title': 'مسلسل باب الحارة',
-    'poster': 'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
+    'poster':
+        'https://image.tmdb.org/t/p/original/hqaW4C5AFeBLsuJ2NLzglwvvOyD.jpg',
     'genre': 'دراما',
     'year': '2006-2022',
     'rating': 8.1,
@@ -28,7 +31,8 @@ final List<Map<String, dynamic>> dummyData = [
   },
   {
     'title': 'فيلم The Shawshank Redemption',
-    'poster': 'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqEE.jpg',
+    'poster':
+        'https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqEE.jpg',
     'genre': 'دراما',
     'year': '1994',
     'rating': 9.3,
@@ -87,7 +91,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'series_title': 'مسلسل The Crown',
     'season_number': 5,
     'episode_number': 1,
-    'thumbnail': 'https://image.tmdb.org/t/p/w500/1O4T3aVEi0CVs3YJ1B5t2Q2IZ3x.jpg',
+    'thumbnail':
+        'https://image.tmdb.org/t/p/w500/1O4T3aVEi0CVs3YJ1B5t2Q2IZ3x.jpg',
     'duration': '49:06',
     'date_added': '2026-03-05'
   },
@@ -95,7 +100,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'series_title': 'مسلسل Money Heist',
     'season_number': 5,
     'episode_number': 1,
-    'thumbnail': 'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',
+    'thumbnail':
+        'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',
     'duration': '36:44',
     'date_added': '2026-03-06'
   },
@@ -103,7 +109,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'series_title': 'مسلسل Stranger Things',
     'season_number': 4,
     'episode_number': 1,
-    'thumbnail': 'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
+    'thumbnail':
+        'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
     'duration': '55:12',
     'date_added': '2026-03-07'
   },
@@ -111,8 +118,104 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'series_title': 'مسلسل The Witcher',
     'season_number': 3,
     'episode_number': 1,
-    'thumbnail': 'https://image.tmdb.org/t/p/w500/foGkPxpw9h8zUn82Y3p1CjDzA12.jpg',
+    'thumbnail':
+        'https://image.tmdb.org/t/p/w500/foGkPxpw9h8zUn82Y3p1CjDzA12.jpg',
     'duration': '42:18',
     'date_added': '2026-03-08'
+  },
+];
+
+const seasonsData = [
+  {
+    "season_number": 1,
+    "episodes_count": 20,
+    "episodes": [
+      {
+        "episode_number": 1,
+        "title": "بدايات جديدة",
+        "description":
+            "بعد حادث مأساوي، يضطر البطل إلى تغيير مسار حياته والبدء من جديد في مدينة غريبة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/gg2WdefC0G241aA8sS5M848gqf.jpg"
+      },
+      {
+        "episode_number": 2,
+        "title": "أسرار الماضي",
+        "description":
+            "يظهر شخص من ماضي البطل، مهدداً بكشف أسرار قد تدمر كل ما بناه.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 3,
+        "title": "الحلقة 3",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 4,
+        "title": "الحلقة 4",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 5,
+        "title": "الحلقة 5",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 6,
+        "title": "الحلقة 6",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 7,
+        "title": "الحلقة 7",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 8,
+        "title": "الحلقة 8",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 9,
+        "title": "الحلقة 9",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+      {
+        "episode_number": 10,
+        "title": "الحلقة 10",
+        "description": "وصف الحلقة.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+      },
+    ]
+  },
+  {
+    "season_number": 2,
+    "episodes_count": 30,
+    "episodes": [
+      {
+        "episode_number": 1,
+        "title": "عودة غير متوقعة",
+        "description":
+            "تبدأ أحداث الموسم الثاني بعودة شخصية رئيسية كان يُعتقد أنها اختفت إلى الأبد.",
+        "thumbnail":
+            "https://image.tmdb.org/t/p/w500/6LWy0jv3v3A3Jm2tL3P1h492gOJ.jpg"
+      },
+    ]
   },
 ];

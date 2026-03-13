@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
 import 'package:klaket_cine/shared/widgets/content_card.dart';
-import 'package:klaket_cine/features/series/screens/series_details_screen.dart';
+import 'package:klaket_cine/features/series/features/series_details/screens/series_details_screen.dart';
 
 class SeriesScreen extends StatelessWidget {
   const SeriesScreen({super.key});

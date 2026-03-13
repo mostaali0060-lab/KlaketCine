@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:klaket_cine/features/series/screens/series_details_screen.dart';
+import 'package:klaket_cine/features/series/features/series_details/screens/series_details_screen.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 
 class HeroSlider extends StatefulWidget {

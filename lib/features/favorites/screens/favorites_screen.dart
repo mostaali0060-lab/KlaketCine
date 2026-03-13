@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 import 'package:klaket_cine/features/favorites/favorites_manager.dart';
 import 'package:klaket_cine/shared/widgets/content_card.dart';
-import 'package:klaket_cine/features/series/screens/series_details_screen.dart';
+import 'package:klaket_cine/features/series/features/series_details/screens/series_details_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});

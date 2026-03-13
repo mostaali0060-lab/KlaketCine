@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/features/player/screens/loading_screen.dart';

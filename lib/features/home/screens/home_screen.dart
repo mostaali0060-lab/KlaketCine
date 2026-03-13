@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
 import 'package:klaket_cine/features/home/widgets/hero_slider.dart';
 import 'package:klaket_cine/features/home/widgets/telegram_promo_card.dart';
-import 'package:klaket_cine/features/series/screens/series_details_screen.dart';
+import 'package:klaket_cine/features/series/features/series_details/screens/series_details_screen.dart';
 import 'package:klaket_cine/shared/widgets/content_card.dart';
 import 'package:klaket_cine/shared/widgets/section_header.dart';
 import 'package:klaket_cine/features/home/widgets/recent_episode_card.dart';
