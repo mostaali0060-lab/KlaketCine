@@ -49,7 +49,7 @@ class FavoritesScreen extends StatelessWidget {
                       left: 14,
                       child: CircleAvatar(
                         radius: 14,
-                        backgroundColor: AppColors.background.withOpacity(0.8),
+                        backgroundColor: AppColors.background.withAlpha(204),
                         child: const Icon(
                           Icons.favorite,
                           color: AppColors.primary,

@@ -17,23 +17,27 @@ class SeriesScreen extends StatelessWidget {
           IconButton(onPressed: () {}, icon: const Icon(Icons.filter_list)),
         ],
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 2 / 3,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
         itemCount: series.length,
         itemBuilder: (context, index) {
           final item = series[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: ContentCard(
-              item: item,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SeriesDetailsScreen(item: item),
-                  ),
-                );
-              },
-            ),
+          return ContentCard(
+            item: item,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SeriesDetailsScreen(item: item),
+                ),
+              );
+            },
           );
         },
       ),

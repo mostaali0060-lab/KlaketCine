@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 
@@ -73,24 +72,24 @@ class EpisodeScreen extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Image.network(episode['image'], fit: BoxFit.cover),
-        Container(decoration: BoxDecoration(color: Colors.black.withOpacity(0.5))),
-        Column(
+        Container(decoration: const BoxDecoration(color: Color.fromRGBO(0, 0, 0, 0.5))),
+        const Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Spacer(),
-            const Icon(Icons.play_arrow_rounded, color: Colors.white70, size: 80.0),
-            const Spacer(),
+            Spacer(),
+            Icon(Icons.play_arrow_rounded, color: Colors.white70, size: 80.0),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Icon(Icons.pause, color: Colors.white, size: 30),
-                  const SizedBox(width: 12),
-                  const Icon(Icons.replay_10, color: Colors.white, size: 30),
-                  const SizedBox(width: 12),
-                  const Icon(Icons.forward_10, color: Colors.white, size: 30),
-                  const SizedBox(width: 8),
-                  const Expanded(
+                  Icon(Icons.pause, color: Colors.white, size: 30),
+                  SizedBox(width: 12),
+                  Icon(Icons.replay_10, color: Colors.white, size: 30),
+                  SizedBox(width: 12),
+                  Icon(Icons.forward_10, color: Colors.white, size: 30),
+                  SizedBox(width: 8),
+                  Expanded(
                     child: SizedBox(
                       height: 5.0,
                       child: LinearProgressIndicator(
@@ -100,12 +99,12 @@ class EpisodeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  const Text('15:30 / 45:00', style: TextStyle(color: Colors.white, fontSize: 12)),
-                  const SizedBox(width: 12),
-                  const Icon(Icons.settings, color: Colors.white, size: 24),
-                  const SizedBox(width: 12),
-                  const Icon(Icons.fullscreen, color: Colors.white, size: 30),
+                  SizedBox(width: 8),
+                  Text('15:30 / 45:00', style: TextStyle(color: Colors.white, fontSize: 12)),
+                  SizedBox(width: 12),
+                  Icon(Icons.settings, color: Colors.white, size: 24),
+                  SizedBox(width: 12),
+                  Icon(Icons.fullscreen, color: Colors.white, size: 30),
                 ],
               ),
             )
@@ -176,7 +175,7 @@ class EpisodeScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 4, 8),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

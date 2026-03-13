@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
+import 'package:klaket_cine/features/player/screens/episode_player_loader.dart';
 
 const seasonsData = [
   {
@@ -39,6 +40,7 @@ class SeriesDetailsScreen extends StatefulWidget {
 
 class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   late Map<String, dynamic> _selectedSeason;
+  int? _currentlyPlayingEpisode;
 
   @override
   void initState() {
@@ -47,16 +49,43 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
       _selectedSeason = seasonsData.first;
     }
   }
+   String _getSeasonName(int seasonNumber) {
+    switch (seasonNumber) {
+      case 1:
+        return 'الموسم الاول';
+      case 2:
+        return 'الموسم الثاني';
+      case 3:
+        return 'الموسم الثالث';
+      case 4:
+        return 'الموسم الرابع';
+      case 5:
+        return 'الموسم الخامس';
+      case 6:
+        return 'الموسم السادس';
+      case 7:
+        return 'الموسم السابع';
+      case 8:
+        return 'الموسم الثامن';
+      case 9:
+        return 'الموسم التاسع';
+      case 10:
+        return 'الموسم العاشر';
+      default:
+        return 'الموسم $seasonNumber';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic> details =
-        Map<String, dynamic>.from(dummyData.first);
-    details.addAll(widget.item);
-    if (widget.item.containsKey('poster')) {
-      details['cover'] = widget.item['poster'];
+    final Map<String, dynamic> details = widget.item;
+    if (!details.containsKey('cover') && details.containsKey('poster')) {
+      details['cover'] = details['poster'];
     }
-    final isSeries = widget.item['type'] == 'series';
+    final isSeries = details['type'] == 'series';
+    final int? episodesCount = isSeries ? _selectedSeason['episodes_count'] : null;
+
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -66,6 +95,14 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             expandedHeight: 0,
             backgroundColor: AppColors.background,
             pinned: true,
+             title: Text(
+              widget.item['title'] ?? 'تفاصيل',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(color: AppColors.background),
             ),
@@ -75,7 +112,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
               child: Column(
                 children: [
-                  _buildResponsiveTopInfo(context, details, isSeries),
+                  _buildResponsiveTopInfo(context, details, isSeries, episodesCount),
                   const SizedBox(height: 24),
                   _buildSectionDivider(),
                   const SizedBox(height: 24),
@@ -173,7 +210,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'الموسم ${season["season_number"]}',
+                                      '${_getSeasonName(season["season_number"] as int)} [ ${season["season_number"]} ]',
                                       style: TextStyle(
                                         color: isSelected
                                             ? AppColors.primary
@@ -235,7 +272,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'الموسم ${_selectedSeason["season_number"]}',
+                  '${_getSeasonName(_selectedSeason["season_number"] as int)} [ ${_selectedSeason["season_number"]} ]',
                   style: const TextStyle(
                     color: AppColors.textPrimary,
                     fontWeight: FontWeight.bold,
@@ -261,15 +298,33 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
           ),
           itemBuilder: (context, index) {
             final episode = (_selectedSeason['episodes'] as List)[index];
+            final bool isPlaying =_currentlyPlayingEpisode == episode['episode_number'];
             return InkWell(
               onTap: () {
-                print('Tapped on episode ${episode['episode_number']}');
+                setState(() {
+                  _currentlyPlayingEpisode = episode['episode_number'];
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EpisodePlayerLoader(
+                      episode: {
+                        'image': episode['thumbnail'] ?? '',
+                        'seriesTitle': seriesDetails['title'],
+                        'season': _selectedSeason['season_number'],
+                        'episode': episode['episode_number'],
+                        'episodeTitle': episode['title']
+                      },
+                    ),
+                  ),
+                );
               },
               borderRadius: BorderRadius.circular(8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: isPlaying ? AppColors.primary.withAlpha(51) : AppColors.surface,
                   borderRadius: BorderRadius.circular(8),
+                  border: isPlaying ? Border.all(color: AppColors.primary, width: 2) : null,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -301,19 +356,19 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   }
 
   Widget _buildResponsiveTopInfo(
-      BuildContext context, Map<String, dynamic> details, bool isSeries) {
+      BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
-          return _buildTopInfoColumn(context, details, isSeries);
+          return _buildTopInfoColumn(context, details, isSeries, episodesCount);
         } else {
-          return _buildTopInfoRow(context, details, isSeries);
+          return _buildTopInfoRow(context, details, isSeries, episodesCount);
         }
       },
     );
   }
 
-  Widget _buildTopInfoRow(BuildContext context, Map<String, dynamic> details, bool isSeries) {
+  Widget _buildTopInfoRow(BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
     final screenHeight = MediaQuery.of(context).size.height;
     final imageHeight = screenHeight * 0.45;
     final imageWidth = imageHeight / 1.5;
@@ -324,7 +379,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
         Expanded(
           flex: 3,
           child:
-              _buildDetailsColumn(context, details, CrossAxisAlignment.start, isSeries),
+              _buildDetailsColumn(context, details, CrossAxisAlignment.start, isSeries, episodesCount),
         ),
         const SizedBox(width: 24),
         Expanded(
@@ -337,7 +392,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   }
 
   Widget _buildTopInfoColumn(
-      BuildContext context, Map<String, dynamic> details, bool isSeries) {
+      BuildContext context, Map<String, dynamic> details, bool isSeries, int? episodesCount) {
     final screenWidth = MediaQuery.of(context).size.width;
     final imageWidth = screenWidth * 0.5;
     final imageHeight = imageWidth * 1.5;
@@ -348,7 +403,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
         _buildPosterImage(
             context, details['cover'] ?? '', imageWidth, imageHeight),
         const SizedBox(height: 24),
-        _buildDetailsColumn(context, details, CrossAxisAlignment.center, isSeries),
+        _buildDetailsColumn(context, details, CrossAxisAlignment.center, isSeries, episodesCount),
       ],
     );
   }
@@ -377,7 +432,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
   }
 
   Widget _buildDetailsColumn(BuildContext context, Map<String, dynamic> details,
-      CrossAxisAlignment crossAxisAlignment, bool isSeries) {
+      CrossAxisAlignment crossAxisAlignment, bool isSeries, int? episodesCount) {
     return Column(
       crossAxisAlignment: crossAxisAlignment,
       children: [
@@ -422,7 +477,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                         TextStyle(color: AppColors.textSecondary, fontSize: 12)),
               ),
               _buildBadge(details['badge'],
-                  AppColors.badgeGreen.withOpacity(0.8), Colors.white,
+                  AppColors.badgeGreen.withAlpha(204), Colors.white,
                   fontSize: 11),
             ]
           ],
@@ -438,7 +493,7 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
             _buildBadge(details['genre'] ?? 'متنوع', AppColors.surface,
                 AppColors.textPrimary),
             if (isSeries)
-              _buildBadge('${details['episodes_count']} حلقة', AppColors.surface,
+              _buildBadge('$episodesCount حلقة', AppColors.surface,
                   AppColors.textPrimary),
             _buildBadge(details['country'] ?? 'غير معروف', AppColors.surface,
                 AppColors.textPrimary),
@@ -579,15 +634,15 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.9)
+                              Color.fromRGBO(0, 0, 0, 0.9),
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
-                            stops: const [0.5, 1.0],
+                            stops: [0.5, 1.0],
                           ),
                         ),
                       ),

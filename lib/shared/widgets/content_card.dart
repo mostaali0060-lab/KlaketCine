@@ -66,7 +66,7 @@ class ContentCard extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.transparent, Colors.black.withOpacity(0.9)],
+                    colors: [Colors.transparent, Colors.black.withAlpha(230)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     stops: const [0.5, 1.0],

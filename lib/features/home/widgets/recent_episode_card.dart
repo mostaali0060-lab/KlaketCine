@@ -7,14 +7,14 @@ class RecentEpisodeCard extends StatelessWidget {
 
   const RecentEpisodeCard({super.key, required this.episode, this.onTap});
 
+  void _defaultOnTap() {
+    // Tapped on episode: ${episode['series_title']}
+  }
+
   @override
   Widget build(BuildContext context) {
-    final VoidCallback defaultOnTap = () {
-      print('Tapped on episode: ${episode['series_title']}');
-    };
-
     return GestureDetector(
-      onTap: onTap ?? defaultOnTap,
+      onTap: onTap ?? _defaultOnTap,
       child: Container(
         width: 160,
         margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -44,7 +44,7 @@ class RecentEpisodeCard extends StatelessWidget {
                   width: 160,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withAlpha(77),
                   ),
                 ),
                 const Icon(
@@ -58,7 +58,7 @@ class RecentEpisodeCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withAlpha(179),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(

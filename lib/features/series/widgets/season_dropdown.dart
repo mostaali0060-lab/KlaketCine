@@ -31,7 +31,7 @@ class _SeasonDropdownState extends State<SeasonDropdown> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.textSecondary.withOpacity(0.2)),
+        border: Border.all(color: AppColors.textSecondary.withAlpha(51)),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(

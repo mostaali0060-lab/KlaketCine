@@ -135,7 +135,7 @@ class _HeroSliderState extends State<HeroSlider> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withOpacity(0.8),
+                      Colors.black.withAlpha(204),
                     ],
                     stops: const [0.5, 1.0],
                   ),
