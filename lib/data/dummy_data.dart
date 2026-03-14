@@ -37,7 +37,17 @@ final List<Map<String, dynamic>> dummyData = [
     'year': '1994',
     'rating': 9.3,
     'badge': 'حصري',
-    'type': 'movie' // Added type
+    'type': 'movie', // Added type
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      },
+      {
+        'name': 'سيرفر #2',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'title': 'مسلسل Game of Thrones',
@@ -55,7 +65,13 @@ final List<Map<String, dynamic>> dummyData = [
     'year': '1972',
     'rating': 9.2,
     'badge': '',
-    'type': 'movie' // Added type
+    'type': 'movie', // Added type
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'title': 'مسلسل Breaking Bad',
@@ -73,7 +89,13 @@ final List<Map<String, dynamic>> dummyData = [
     'year': '2008',
     'rating': 9.0,
     'badge': '',
-    'type': 'movie' // Added type
+    'type': 'movie', // Added type
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'title': 'مسلسل Friends',
@@ -94,7 +116,13 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'thumbnail':
         'https://image.tmdb.org/t/p/w500/1O4T3aVEi0CVs3YJ1B5t2Q2IZ3x.jpg',
     'duration': '49:06',
-    'date_added': '2026-03-05'
+    'date_added': '2026-03-05',
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'series_title': 'مسلسل Money Heist',
@@ -103,7 +131,13 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'thumbnail':
         'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg',
     'duration': '36:44',
-    'date_added': '2026-03-06'
+    'date_added': '2026-03-06',
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'series_title': 'مسلسل Stranger Things',
@@ -112,7 +146,13 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'thumbnail':
         'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg',
     'duration': '55:12',
-    'date_added': '2026-03-07'
+    'date_added': '2026-03-07',
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
   {
     'series_title': 'مسلسل The Witcher',
@@ -121,7 +161,13 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'thumbnail':
         'https://image.tmdb.org/t/p/w500/foGkPxpw9h8zUn82Y3p1CjDzA12.jpg',
     'duration': '42:18',
-    'date_added': '2026-03-08'
+    'date_added': '2026-03-08',
+    'video_servers': [
+      {
+        'name': 'سيرفر #1',
+        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      }
+    ]
   },
 ];
 
@@ -136,7 +182,17 @@ const seasonsData = [
         "description":
             "بعد حادث مأساوي، يضطر البطل إلى تغيير مسار حياته والبدء من جديد في مدينة غريبة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/gg2WdefC0G241aA8sS5M848gqf.jpg"
+            "https://image.tmdb.org/t/p/w500/gg2WdefC0G241aA8sS5M848gqf.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          },
+          {
+            'name': 'سيرفر #2',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 2,
@@ -144,63 +200,117 @@ const seasonsData = [
         "description":
             "يظهر شخص من ماضي البطل، مهدداً بكشف أسرار قد تدمر كل ما بناه.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 3,
         "title": "الحلقة 3",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 4,
         "title": "الحلقة 4",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 5,
         "title": "الحلقة 5",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 6,
         "title": "الحلقة 6",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 7,
         "title": "الحلقة 7",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 8,
         "title": "الحلقة 8",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 9,
         "title": "الحلقة 9",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
       {
         "episode_number": 10,
         "title": "الحلقة 10",
         "description": "وصف الحلقة.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg"
+            "https://image.tmdb.org/t/p/w500/pHa5r5oApcpSCl2O0n1m3aROfLp.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
     ]
   },
@@ -214,7 +324,13 @@ const seasonsData = [
         "description":
             "تبدأ أحداث الموسم الثاني بعودة شخصية رئيسية كان يُعتقد أنها اختفت إلى الأبد.",
         "thumbnail":
-            "https://image.tmdb.org/t/p/w500/6LWy0jv3v3A3Jm2tL3P1h492gOJ.jpg"
+            "https://image.tmdb.org/t/p/w500/6LWy0jv3v3A3Jm2tL3P1h492gOJ.jpg",
+        'video_servers': [
+          {
+            'name': 'سيرفر #1',
+            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+          }
+        ]
       },
     ]
   },

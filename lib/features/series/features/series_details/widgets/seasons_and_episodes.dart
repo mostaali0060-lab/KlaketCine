@@ -215,7 +215,8 @@ class _SeasonsAndEpisodesState extends State<SeasonsAndEpisodes> {
                         'seriesTitle': widget.seriesDetails['title'],
                         'season': widget.selectedSeason['season_number'],
                         'episode': episode['episode_number'],
-                        'episodeTitle': episode['title']
+                        'episodeTitle': episode['title'],
+                        'video_servers': episode['video_servers'],
                       },
                     ),
                   ),

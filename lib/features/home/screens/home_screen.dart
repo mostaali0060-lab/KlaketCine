@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
 import 'package:klaket_cine/features/home/widgets/hero_slider.dart';
 import 'package:klaket_cine/features/home/widgets/telegram_promo_card.dart';
+import 'package:klaket_cine/features/player/screens/episode_player_loader.dart';
 import 'package:klaket_cine/features/series/features/series_details/screens/series_details_screen.dart';
 import 'package:klaket_cine/shared/widgets/content_card.dart';
 import 'package:klaket_cine/shared/widgets/section_header.dart';
@@ -51,7 +52,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecentlyAddedList(BuildContext context, List<Map<String, dynamic>> episodes) {
+  Widget _buildRecentlyAddedList(
+      BuildContext context, List<Map<String, dynamic>> episodes) {
     return SizedBox(
       height: 160,
       child: ListView.builder(
@@ -62,13 +64,31 @@ class HomeScreen extends StatelessWidget {
           final episode = episodes[index];
           return RecentEpisodeCard(
             episode: episode,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EpisodePlayerLoader(
+                    episode: {
+                      'image': episode['thumbnail'],
+                      'seriesTitle': episode['series_title'],
+                      'season': episode['season_number'],
+                      'episode': episode['episode_number'],
+                      'episodeTitle': episode['title'],
+                      'video_servers': episode['video_servers'],
+                    },
+                  ),
+                ),
+              );
+            },
           );
         },
       ),
     );
   }
 
-  Widget _buildHorizontalMovieList(BuildContext context, List<Map<String, dynamic>> items) {
+  Widget _buildHorizontalMovieList(
+      BuildContext context, List<Map<String, dynamic>> items) {
     return SizedBox(
       height: 220,
       child: ListView.builder(

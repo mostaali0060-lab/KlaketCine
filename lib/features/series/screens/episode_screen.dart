@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EpisodeScreen extends StatelessWidget {
   final Map<String, dynamic> episode;
 
   const EpisodeScreen({super.key, required this.episode});
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +123,14 @@ class EpisodeScreen extends StatelessWidget {
   }
 
   Widget _buildActionButtons(BuildContext context) {
-    final watchQualities = ['1080p', '720p', '480p', '360p'];
+    final dynamic videoServersData = episode['video_servers'];
+    List<Map<String, dynamic>> videoServerList = [];
+
+    if (videoServersData is List) {
+      videoServerList = List<Map<String, dynamic>>.from(
+          videoServersData.map((s) => s as Map<String, dynamic>));
+    }
+
     final downloadServers = [
       {'quality': '1080p', 'size': '1.2 GB'},
       {'quality': '720p', 'size': '850 MB'},
@@ -128,7 +143,15 @@ class EpisodeScreen extends StatelessWidget {
           child: ElevatedButton.icon(
             icon: const Icon(Icons.play_circle_outline_rounded),
             label: const Text('مشاهدة الآن'),
-            onPressed: () => _showServersBottomSheet(context, 'سيرفرات المشاهدة', watchQualities.map((q) => {'quality': q}).toList(), false),
+            onPressed: () {
+              if (videoServerList.isNotEmpty) {
+                _showServersBottomSheet(
+                    context, 'سيرفرات المشاهدة', videoServerList, false);
+              } else {
+                _showServersBottomSheet(context, 'خطأ',
+                    [{'name': 'لا توجد سيرفرات لهذا المحتوى'}], false);
+              }
+            },
             style: _actionButtonStyle(),
           ),
         ),
@@ -137,7 +160,8 @@ class EpisodeScreen extends StatelessWidget {
           child: ElevatedButton.icon(
             icon: const Icon(Icons.download_for_offline_outlined),
             label: const Text('تحميل'),
-            onPressed: () => _showServersBottomSheet(context, 'سيرفرات التحميل', downloadServers, true),
+            onPressed: () => _showServersBottomSheet(
+                context, 'سيرفرات التحميل', downloadServers, true),
             style: _actionButtonStyle(isPrimary: false),
           ),
         ),
@@ -154,15 +178,16 @@ class EpisodeScreen extends StatelessWidget {
       textStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Cairo', // Set the font to Cairo
+        fontFamily: 'Cairo',
       ),
     );
   }
 
-  void _showServersBottomSheet(BuildContext context, String title, List<Map<String, String>> servers, bool isDownload) {
+  void _showServersBottomSheet(BuildContext context, String title,
+      List<Map<String, dynamic>> servers, bool isDownload) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: const Color(0xFF1A1C21), // Dark surface color
+      backgroundColor: const Color(0xFF1A1C21),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -200,18 +225,24 @@ class EpisodeScreen extends StatelessWidget {
                 itemCount: servers.length,
                 itemBuilder: (context, index) {
                   final server = servers[index];
-                  final quality = server['quality']!;
+                  final quality = server['name'] ?? server['quality'] ?? '';
                   final size = server['size'];
+                  final url = server['url'];
 
                   return InkWell(
                     onTap: () {
                       Navigator.of(context).pop();
+                      if (url != null) {
+                        _launchURL(url);
+                      }
                     },
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 16),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF282A30), // Item background
+                        color: const Color(0xFF282A30),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -219,12 +250,17 @@ class EpisodeScreen extends StatelessWidget {
                           if (isDownload && size != null)
                             Text(
                               size,
-                              style: const TextStyle(color: AppColors.textSecondary, fontSize: 15),
+                              style: const TextStyle(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 15),
                             ),
                           const Spacer(),
                           Text(
                             quality,
-                            style: const TextStyle(color: AppColors.textPrimary, fontSize: 16, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),

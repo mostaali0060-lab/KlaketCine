@@ -42,8 +42,8 @@ class RecentEpisodeCard extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withOpacity(0.1),
-                      Colors.black.withOpacity(0.9),
+                      Colors.black.withAlpha(26), // 0.1 opacity
+                      Colors.black.withAlpha(230), // 0.9 opacity
                     ],
                     stops: const [0.5, 0.7, 1.0],
                   ),
@@ -64,7 +64,7 @@ class RecentEpisodeCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
+                    color: Colors.black.withAlpha(153), // 0.6 opacity
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
@@ -96,7 +96,7 @@ class RecentEpisodeCard extends StatelessWidget {
                     Text(
                       'الحلقة ${episode['episode_number']}',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withAlpha(204), // 0.8 opacity
                         fontSize: 14,
                       ),
                     ),
