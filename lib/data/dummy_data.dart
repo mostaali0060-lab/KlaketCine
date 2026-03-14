@@ -41,11 +41,13 @@ final List<Map<String, dynamic>> dummyData = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       },
       {
         'name': 'سيرفر #2',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -69,7 +71,8 @@ final List<Map<String, dynamic>> dummyData = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -93,7 +96,8 @@ final List<Map<String, dynamic>> dummyData = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -120,7 +124,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -135,7 +140,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -150,7 +156,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -165,7 +172,8 @@ const List<Map<String, dynamic>> recentlyAddedEpisodes = [
     'video_servers': [
       {
         'name': 'سيرفر #1',
-        'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'url':
+            'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
       }
     ]
   },
@@ -186,11 +194,13 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           },
           {
             'name': 'سيرفر #2',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -204,7 +214,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -217,7 +228,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -230,7 +242,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -243,7 +256,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -256,7 +270,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -269,7 +284,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -282,7 +298,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -295,7 +312,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -308,7 +326,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },
@@ -328,7 +347,8 @@ const seasonsData = [
         'video_servers': [
           {
             'name': 'سيرفر #1',
-            'url': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+            'url':
+                'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
           }
         ]
       },

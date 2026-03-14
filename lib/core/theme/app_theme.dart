@@ -35,6 +35,7 @@ class AppTheme {
         primary: AppColors.primary,
         secondary: AppColors.primaryDark,
         surface: AppColors.surface,
+        error: AppColors.primaryRed,
       ),
       cardColor: AppColors.surface,
       elevatedButtonTheme: ElevatedButtonThemeData(
