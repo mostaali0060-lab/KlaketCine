@@ -1,69 +1,81 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 import 'package:klaket_cine/presentation/shared/screens/main_screen.dart';
 
-class SupportGazaScreen extends StatelessWidget {
+class SupportGazaScreen extends StatefulWidget {
   const SupportGazaScreen({super.key});
+
+  @override
+  State<SupportGazaScreen> createState() => _SupportGazaScreenState();
+}
+
+class _SupportGazaScreenState extends State<SupportGazaScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+      const Duration(seconds: 5),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MainScreen()),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Replace with your image asset
-            Image.asset(
-              'assets/images/gaza.png', // Make sure to add your image to the assets folder
-              height: 200,
-              width: 200,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.favorite,
-                color: Colors.red,
-                size: 150,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.primaryRed.withOpacity(0.5), width: 2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Text(
+                  'فلسطين',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Cairo',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              '#SupportGaza 🇵🇸',
-              style: TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Cairo',
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'من أجل إخواننا في غزة، نرجو منكم الدعاء لهم',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 18,
-                fontFamily: 'Cairo',
-              ),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.textPrimary,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                textStyle: const TextStyle(
-                  fontSize: 18,
+              const SizedBox(height: 24),
+              const Text(
+                'تضامناً مع قضيتنا العادلة',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Cairo',
                 ),
+                textAlign: TextAlign.center,
               ),
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              },
-              child: const Text('المتابعة إلى التطبيق'),
-            ),
-          ],
+              const SizedBox(height: 8),
+              const Text(
+                'معاً نساند الأمل، ونبني جسور المحبة والإخاء',
+                style: TextStyle(
+                  color: AppColors.textSecondary,
+                  fontSize: 16,
+                  fontFamily: 'Cairo',
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40),
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.primaryRed),
+              ),
+            ],
+          ),
         ),
       ),
     );

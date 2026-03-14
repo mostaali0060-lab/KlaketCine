@@ -102,8 +102,9 @@ class EpisodeDetailsScreen extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
+                    stops: const [0.0, 0.9],
                     colors: [
-                      AppColors.background.withAlpha(204),
+                      AppColors.background,
                       Colors.transparent,
                     ],
                   ),
