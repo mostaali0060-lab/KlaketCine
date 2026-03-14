@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:klaket_cine/core/constants/app_colors.dart';
 import 'package:klaket_cine/data/dummy_data.dart';
@@ -70,6 +71,19 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
           SliverAppBar(
             backgroundColor: AppColors.background,
             pinned: true, // Keeps the app bar visible during scroll
+            expandedHeight: 250,
+            automaticallyImplyLeading: false,
+            title: Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: () => Navigator.of(context).pop(),
+                label: const Text(
+                  'الرجوع',
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 16),
+              ),
+            ),
             // Add the new icons to the 'actions' list
             // In RTL, actions are on the left side.
             actions: <Widget>[
@@ -108,6 +122,40 @@ class _SeriesDetailsScreenState extends State<SeriesDetailsScreen> {
                 },
               ),
             ],
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    details['cover'] ?? '',
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Image.asset(
+                      'assets/poster.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Container(
+                      color: Colors.black.withOpacity(0.1),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        stops: const [0.0, 0.9],
+                        colors: [
+                          AppColors.background,
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           SliverToBoxAdapter(
             child: Padding(
