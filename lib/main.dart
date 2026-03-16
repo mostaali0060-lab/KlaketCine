@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:klaket_cine/presentation/features/support_gaza/screens/support_gaza_screen.dart';
+import 'package:klaket_cine/Common/Screens/SupportGazaScreen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'core/theme/app_theme.dart';
+import 'Utils/Theme/AppTheme.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
